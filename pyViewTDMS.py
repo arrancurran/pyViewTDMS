@@ -3,6 +3,7 @@ from tkinter import ttk, filedialog
 from PIL import Image, ImageTk
 from nptdms import TdmsFile
 import numpy as np
+import os
 import xml.etree.ElementTree as ET
 
 class TDMSImageApp:
@@ -19,7 +20,8 @@ class TDMSImageApp:
 
         # Read XML file to get experimental parameters
         self.experiment_name, self.pixels_x, self.pixels_y = self.read_xml_parameters(xml_file_path)
-        tdms_file_path = f"{self.experiment_name}.tdms"
+        xml_directory = os.path.dirname(xml_file_path)
+        tdms_file_path = os.path.join(xml_directory, f"{self.experiment_name}.tdms")
 
         # Load TDMS file metadata
         self.tdms_file = TdmsFile.read(tdms_file_path)
